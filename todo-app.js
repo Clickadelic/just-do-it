@@ -72,7 +72,7 @@ class TodoApp {
 				display: block;
 				width: 100%;
 				padding: .75rem;
-				border-radius: 6px;
+				border-radius: 4px;
 				margin-bottom: .5rem;
 				border: 1px solid var(--silver);
 				outline: 0;
@@ -123,9 +123,11 @@ class TodoApp {
 				list-style: none;
 				padding: 0;
 				li {
+					display: flex;
+					justify-content: justify-start;
 					background: white;
-					padding: .75rem;
-					border-radius: 6px;
+					padding: .5rem .75rem;
+					border-radius: 4px;
 					margin-bottom: .5rem;
 				}
 			}
@@ -159,7 +161,7 @@ class TodoApp {
 			let li = document.createElement("li");
 			let itemId = window.crypto.randomUUID();
 			li.setAttribute("id", itemId);
-			li.innerHTML = "<input type='checkbox' class='done-checkbox'>" + todo + "<button class='delete-btn'>Delete</button>";
+			li.innerHTML = "<input type='checkbox' class='done-checkbox'>" + todo;
 			document.getElementById("todo-list").appendChild(li);
 		});
 	}
