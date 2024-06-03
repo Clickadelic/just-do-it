@@ -46,7 +46,7 @@ class TodoApp {
 	addStylesToHead() {
 		const styles = `
 			:root {
-				--container-width: 400px;
+				--container-width: 280px;
 				--dark: #141414;
 				--light: #f0f0f0;
 				--yellow: #FFE53B;
@@ -77,6 +77,11 @@ class TodoApp {
 				border: 1px solid var(--silver);
 				outline: 0;
 			}
+			input[type="checkbox"] {
+				display: inline-block;
+				margin-right: .5rem;
+				outline: 0;
+			}
 			button {
 				width: 100%;
 				display: block;
@@ -88,6 +93,16 @@ class TodoApp {
 				padding: .75rem .75rem;
 			}
 			button:hover {
+				background: var(--btn-bg-hover);
+			}
+			.delete-btn {
+				display: inline-block;
+				width: 1.5rem;
+				height: 1.5rem;
+				background: var(--red);
+				color: white;
+			}
+			.delete-btn:hover {
 				background: var(--btn-bg-hover);
 			}
 			.container {
@@ -130,6 +145,10 @@ class TodoApp {
 	}
 
 	addItem(item) {
+		if (item == "") {
+			alert("Value missing");
+			return;
+		}
 		this.todos.push(item); // Method to add items to the array
 	}
 
@@ -138,8 +157,9 @@ class TodoApp {
 		ul.innerHTML = "";
 		this.todos.forEach(todo => {
 			let li = document.createElement("li");
-			li.innerHTML = todo;
-
+			let itemId = window.crypto.randomUUID();
+			li.setAttribute("id", itemId);
+			li.innerHTML = "<input type='checkbox' class='done-checkbox'>" + todo + "<button class='delete-btn'>Delete</button>";
 			document.getElementById("todo-list").appendChild(li);
 		});
 	}
