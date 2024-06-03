@@ -104,6 +104,16 @@ class TodoApp {
 				}
 
 			}
+			#todo-list {
+				list-style: none;
+				padding: 0;
+				li {
+					background: white;
+					padding: .75rem;
+					border-radius: 6px;
+					margin-bottom: .5rem;
+				}
+			}
 
 		`;
 		document.head.insertAdjacentHTML("beforeend", `<style id="todo-app-style-css">${styles}</style>`);
