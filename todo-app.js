@@ -1,7 +1,6 @@
 class TodoApp {
-	todos = [];
-
 	constructor() {
+		this.todos = [];
 		this.addDomElements();
 		this.addStylesToHead();
 		this.addListeners();
@@ -21,7 +20,7 @@ class TodoApp {
 		container.appendChild(title);
 
 		const form = document.createElement("form");
-		form.setAttribute("id", "todo-list");
+		form.setAttribute("id", "todo-form");
 		form.setAttribute("method", "post");
 
 		container.appendChild(form);
@@ -113,24 +112,30 @@ class TodoApp {
 	addListeners() {
 		document.addEventListener("submit", e => {
 			e.preventDefault();
+			const item = document.getElementById("todo-input").value;
+			this.addItem(item);
+			this.renderTodos();
+			this.resetInput();
 		});
 	}
 
-	todos() {
-		let todo = document.getElementById("todo-input");
-		let todoVal = todo.value;
-		todos.push(todoVal);
-		todoVal = "";
-		this.renderTodos();
+	addItem(item) {
+		this.todos.push(item); // Method to add items to the array
 	}
 
 	renderTodos() {
+		const ul = document.getElementById("todo-list");
+		ul.innerHTML = "";
 		this.todos.forEach(todo => {
 			let li = document.createElement("li");
 			li.innerHTML = todo;
 
 			document.getElementById("todo-list").appendChild(li);
 		});
+	}
+
+	resetInput() {
+		document.getElementById("todo-input").value = "";
 	}
 }
 
