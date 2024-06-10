@@ -1,9 +1,23 @@
 class TodoApp {
 	constructor() {
 		this.todos = [];
+		this.loaderInit();
 		this.addDomElements();
 		this.addStylesToHead();
 		this.addListeners();
+	}
+
+	loaderInit() {
+		const loading = document.addEventListener("DOMContentLoaded", () => {
+			const loader = document.getElementById("loader");
+			loader.remove();
+			console.log("Loader removed");
+		});
+		const loader = document.createElement("div");
+		loader.setAttribute("id", "loader");
+		loader.innerHTML = "Loading...";
+		loader.setAttribute("class", "loader");
+		document.body.appendChild(loader);
 	}
 
 	addDomElements() {
@@ -128,7 +142,12 @@ class TodoApp {
 					background: white;
 					padding: .5rem .75rem;
 					border-radius: 4px;
+					font-weight: 500;
 					margin-bottom: .5rem;
+				}
+				li:has(.done-checkbox:checked) {
+					text-decoration: line-through;
+					font-weight: normal;
 				}
 			}
 
@@ -154,7 +173,16 @@ class TodoApp {
 		this.todos.push(item); // Method to add items to the array
 	}
 
+	markAsDone(item) {
+		const index = this.todos.indexOf(item);
+		this.todos.splice(index, 1);
+	}
+
 	renderTodos() {
+		// const localStorageTodos = localStorage.getItem("todos");
+		// if (localStorageTodos) {
+		// 	this.todos = JSON.parse(localStorageTodos);
+		// }
 		const ul = document.getElementById("todo-list");
 		ul.innerHTML = "";
 		this.todos.forEach(todo => {
@@ -164,6 +192,27 @@ class TodoApp {
 			li.innerHTML = "<input type='checkbox' class='done-checkbox'>" + todo;
 			document.getElementById("todo-list").appendChild(li);
 		});
+
+		const checkboxes = document.querySelectorAll(".done-checkbox");
+		checkboxes.forEach(checkbox => {
+			checkbox.addEventListener("change", e => {
+				const item = e.target.parentElement;
+				this.markAsDone(item);
+				// this.renderTodos();
+				saveToLocalStorage(this.todos);
+			});
+		});
+	}
+
+	saveToLocalStorage() {
+		localStorage.setItem("todos", JSON.stringify(this.todos));
+	}
+
+	setToaster() {
+		const toast = document.createElement("div");
+		toast.setAttribute("id", "toast");
+		toast.innerHTML = "Item added";
+		document.body.appendChild(toast);
 	}
 
 	resetInput() {
