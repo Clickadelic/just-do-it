@@ -25,6 +25,12 @@ class TodoApp {
 		rootDiv.setAttribute("id", "just-do-it");
 		document.body.appendChild(rootDiv);
 
+		const header = document.createElement("header");
+		header.setAttribute("class", "header");
+		header.innerHTML = `<div><h1>Just Do It</h1><span>A zero dependency Vanilla JS ToDo App</span></div>`;
+		header.innerHTML += `<div><ul><li><a href="/">Home</a></li><li><a href="https://github.com/Clickadelic/just-do-it" target="_blank">GitHub</a></li></ul></div>`;
+		rootDiv.appendChild(header);
+
 		const container = document.createElement("div");
 		container.setAttribute("class", "container");
 		rootDiv.appendChild(container);
@@ -301,22 +307,48 @@ class TodoApp {
 				box-sizing: border-box;
 			}
 			body {
-				background-color: var(--jdi-body-bg);
+				background-color: var(--slate-200);
 				font-family: var(--jdi-font-family);
 				color: var(--jdi-text);
 				height: 100vh;
+			}
+			h1, h2, h3, h4, h5, h6 {
+				font-weight: 300;
+			}
+			.header {
+				background: var(--jdi-indigo-800);
+				padding: 1rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.header h1 {
+				color: var(--jdi-slate-50);
+				font-size: 1.125rem;
+				font-weight: bold;
+				font-style: italic;
+				margin-bottom: .5rem;
+			}
+			.header span {
+				color: var(--jdi-slate-400);
+				font-size: .875rem;
+			}
+			.header ul {
+				list-style: none;
+				display: flex;
+				gap: 1rem;
+				a:link, a:visited {
+					text-decoration: none;
+					color: var(--jdi-slate-50);
+				
 				}
-				h1, h2, h3, h4, h5, h6 {
-					font-weight: 300;
-				}
-				input[type="text"] {
+			}
+			input[type="text"] {
 				display: block;
 				font-size: 1.125rem;
 				width: 100%;
-				padding: .75rem;
-				border-radius: 4px;
-				margin-bottom: .5rem;
-				border: 1px solid var(--silver);
+				padding: 0;
+				margin: 0;
 				outline: 0;
 			}
 			input[type="checkbox"] {
@@ -487,6 +519,9 @@ class TodoApp {
 		toast.setAttribute("id", "toast");
 		toast.innerHTML = message;
 		document.body.appendChild(toast);
+		setTimeout(() => {
+			toast.remove();
+		}, 2000);
 	}
 
 	resetInput() {
