@@ -1,5 +1,5 @@
 class TodoApp {
-	constructor(width = 380) {
+	constructor(width = 340) {
 		this.width = width;
 		this.todos = [];
 		this.loaderInit();
@@ -347,8 +347,10 @@ class TodoApp {
 				display: block;
 				font-size: 1.125rem;
 				width: 100%;
-				padding: 0;
-				margin: 0;
+				padding: .5rem .75rem;
+				border-radius: .25rem;
+				margin: 0 0 1rem 0;
+				border: 1px solid var(--jdi-slate-400);
 				outline: 0;
 			}
 			input[type="checkbox"] {
